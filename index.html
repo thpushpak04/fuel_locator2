@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuel Station Locator - Find Fuel Near You</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header role="banner">
+        <div class="header-content">
+            <h1><i class="fas fa-gas-pump"></i> Fuel Station Locator</h1>
+            <nav aria-label="Main navigation">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Clean Hero Section -->
+        <section class="main-hero">
+            <div class="hero-content">
+                <h2>Fast, Reliable Fuel Stops</h2>
+                <p>Enter your city or use your current location to find petrol pumps.</p>
+                <div class="search-box" role="search">
+                    <input type="text" id="cityInput" placeholder="e.g., New Delhi" aria-label="City input" />
+                    <button id="searchBtn" aria-label="Search for fuel stations">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <!-- NEW LOCATION BUTTON -->
+                    <button id="locationBtn" aria-label="Use my current location">
+                        <i class="fas fa-crosshairs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Results Section -->
+        <section class="container" id="search-results-section">
+             <div id="search-results-grid">
+                <!-- Station cards will be dynamically inserted here -->
+             </div>
+        </section>
+        
+        <section class="gallery-section">
+            <div class="container">
+                <h2>Our Gallery</h2>
+                <div class="slideshow-container" id="gallery-container">
+                    <div class="slideshow" id="gallerySlideshow">
+                        <div class="slide"><img src="iocl.jpg" alt="Clean petrol pump"></div>
+                        <div class="slide">
+                            <video muted loop playsinline>
+                                <source src="secondpic.avif" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="slide"><img src="thirdpic.webp" alt="Petrol pump at night"></div>
+                    </div>
+                    <button class="slide-arrow prev" id="galleryPrev">&#10094;</button>
+                    <button class="slide-arrow next" id="galleryNext">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="user-reviews-section">
+            <div class="container">
+                <h2>What Our Users Say</h2>
+                <div class="slideshow-container" id="review-container">
+                    <div class="slideshow" id="reviewSlideshow"></div>
+                    <button class="slide-arrow prev" id="reviewPrev">&#10094;</button>
+                    <button class="slide-arrow next" id="reviewNext">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="review-form-section" role="region" aria-label="Submit a review">
+            <div class="form-container">
+                <h2><i class="fas fa-star"></i> Submit a Review</h2>
+                <form id="reviewForm" novalidate>
+                    <div class="form-group">
+                        <label for="station_id">Fuel Station</label>
+                        <select id="station_id" name="station_id" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <select id="rating" name="rating" required>
+                            <option value="">-- Select a Rating --</option>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Good</option>
+                            <option value="3">3 - Average</option>
+                            <option value="2">2 - Poor</option>
+                            <option value="1">1 - Terrible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="review_text">Review</label>
+                        <textarea id="review_text" name="review_text" placeholder="Write your review here..." required></textarea>
+                    </div>
+                    <button type="submit" id="submitReviewBtn">
+                        <span class="btn-text">Submit Review</span>
+                        <span class="spinner"></span>
+                    </button>
+                    <div id="form-response-message"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3><i class="fas fa-gas-pump"></i> Fuel Station Locator</h3>
+                <p>Connecting you to your next destination, seamlessly. Find fuel stations, check amenities, and plan your journey with ease.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Connect With Us</h4>
+                <div class="social-icons">
+                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Fuel Station Locator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
