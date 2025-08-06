@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Station Details - Fuel Station Locator</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header role="banner">
+        <div class="header-content">
+            <h1><i class="fas fa-gas-pump"></i> Fuel Station Locator</h1>
+            <nav aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Back Button Section -->
+        <section class="back-section">
+            <div class="container">
+                <button id="back-btn" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Search Results
+                </button>
+            </div>
+        </section>
+
+        <!-- Station Details Section -->
+        <section class="station-details-section">
+            <div class="container">
+                <!-- Loading State -->
+                <div id="loading-container" class="loading-container">
+                    <div class="spinner-large"></div>
+                    <p>Loading station details...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="error-container" class="error-container" style="display: none;">
+                    <div class="error-content">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Station Not Found</h2>
+                        <p id="error-message">The requested station could not be found.</p>
+                        <button id="retry-btn" class="retry-button">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Station Details Content -->
+                <div id="station-details-content" class="station-details-content" style="display: none;">
+                    <!-- Main Station Info Card -->
+                    <div class="station-main-card">
+                        <div class="station-header">
+                            <h1 id="station-name">
+                                <i class="fas fa-gas-pump"></i>
+                                <span class="station-name-text"></span>
+                            </h1>
+                            <div class="station-status">
+                                <span class="status-badge active">
+                                    <i class="fas fa-circle"></i> Active
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="station-basic-info">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address</strong>
+                                    <p id="station-address"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <i class="fas fa-city"></i>
+                                <div>
+                                    <strong>City</strong>
+                                    <p id="station-city"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Information Cards -->
+                    <div class="details-grid">
+                        <!-- Operator Information -->
+                        <div class="detail-card">
+                            <h3><i class="fas fa-building"></i> Operator Information</h3>
+                            <div class="detail-content">
+                                <div class="detail-row">
+                                    <span class="detail-label">Operator Name:</span>
+                                    <span id="operator-name" class="detail-value">-</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Company Type:</span>
+                                    <span id="company-type" class="detail-value">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Establishment Information -->
+                        <div class="detail-card">
+                            <h3><i class="fas fa-calendar-alt"></i> Establishment Details</h3>
+                            <div class="detail-content">
+                                <div class="detail-row">
+                                    <span class="detail-label">Established:</span>
+                                    <span id="establishment-date" class="detail-value">-</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Years in Service:</span>
+                                    <span id="years-service" class="detail-value">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services & Amenities -->
+                        <div class="detail-card">
+                            <h3><i class="fas fa-wrench"></i> Services & Amenities</h3>
+                            <div class="detail-content">
+                                <div class="amenities-grid" id="amenities-grid">
+                                    <!-- Amenities will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="detail-card">
+                            <h3><i class="fas fa-phone"></i> Contact Information</h3>
+                            <div class="detail-content">
+                                <div class="detail-row">
+                                    <span class="detail-label">Phone:</span>
+                                    <span id="station-phone" class="detail-value">-</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Email:</span>
+                                    <span id="station-email" class="detail-value">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operating Hours -->
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clock"></i> Operating Hours</h3>
+                            <div class="detail-content">
+                                <div class="detail-row">
+                                    <span class="detail-label">Daily Hours:</span>
+                                    <span id="operating-hours" class="detail-value">24/7</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Current Status:</span>
+                                    <span id="current-status" class="detail-value status-open">
+                                        <i class="fas fa-circle"></i> Open Now
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Details -->
+                        <div class="detail-card">
+                            <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+                            <div class="detail-content">
+                                <div class="detail-row">
+                                    <span class="detail-label">Station ID:</span>
+                                    <span id="station-id-display" class="detail-value">-</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Fuel Types:</span>
+                                    <span id="fuel-types" class="detail-value">Petrol, Diesel</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="action-btn primary" onclick="window.history.back()">
+                            <i class="fas fa-arrow-left"></i> Go Back
+                        </button>
+                        <button class="action-btn secondary" onclick="window.open('https://maps.google.com?q=' + encodeURIComponent(document.getElementById('station-address').textContent + ', ' + document.getElementById('station-city').textContent), '_blank')">
+                            <i class="fas fa-map"></i> View on Map
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3><i class="fas fa-gas-pump"></i> Fuel Station Locator</h3>
+                <p>Connecting you to your next destination, seamlessly. Find fuel stations, check amenities, and plan your journey with ease.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Connect With Us</h4>
+                <div class="social-icons">
+                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Fuel Station Locator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/details.js"></script>
+</body>
+</html>

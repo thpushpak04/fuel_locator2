@@ -1,17 +1,52 @@
 <?php
-// Database configuration
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'fuel_locator');
+// File: php/config.php
+// Database configuration file with error handling
 
-// Attempt to connect to MySQL database
-$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$servername = "localhost";
+$username = "root";        
+$password = "";            
+$dbname = "fuel_station_db";
 
-// Check connection
-if($conn === false || $conn->connect_error){
-    // Use die() to stop script execution and show an error message.
-    // In a production environment, you might want to log this error instead of showing it to the user.
-    die("ERROR: Could not connect. " . $conn->connect_error);
+try {
+    // Create connection with error handling
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    // Check connection
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+    
+    // Set charset to utf8
+    $conn->set_charset("utf8");
+    
+} catch (Exception $e) {
+    // Log error and provide user-friendly message
+    error_log("Database connection error: " . $e->getMessage());
+    
+    // For development, show error. For production, hide it.
+    if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1') {
+        die("Database connection failed: " . $e->getMessage());
+    } else {
+        die("Database connection failed. Please try again later.");
+    }
+}
+
+// Function to sanitize input
+function sanitize_input($data) {
+    global $conn;
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $conn->real_escape_string($data);
+}
+
+// Function to validate email
+function validate_email($email) {
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+// Function to log errors
+function log_error($message) {
+    error_log(date('Y-m-d H:i:s') . " - " . $message . PHP_EOL, 3, "errors.log");
 }
 ?>
